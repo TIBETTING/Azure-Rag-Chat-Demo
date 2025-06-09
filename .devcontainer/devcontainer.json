@@ -1,0 +1,19 @@
+{
+    "name": "Azure ChatDemo",
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    // 以下追加
+    "appPort": [
+        "8501:8501"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.debugpy", //ExtentionIDをCopyして貼り付け
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    }
+}
