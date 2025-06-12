@@ -21,6 +21,12 @@ def main():
     # streamlit hellow world app
     st.title("Azure Chat Demo")
 
+    with st.sidebar:
+        if st.button('Clear chat'):
+            st.session_state.chat_log = []
+        # チャットログの履歴を保持する数
+        message_num = st.slider('会話履歴数',min_value=5, max_value=50, value=10)
+
     # embeddingsのModelを取得
     embeddings = None
     if os.getenv('AZURE_OPENAI_API_KEY') != "":
@@ -103,6 +109,11 @@ def main():
             HumanMessage(content=user_msg),
             AIMessage(content=response)
         ])
+
+        # チャットログを保持する数を超えた場合、古いログを削除
+        if len(st.session_state.chat_log) > message_num: 
+            st.session_state.chat_log = st.session_state.chat_log[-message_num:]
+        print(st.session_state.chat_log, len(st.session_state.chat_log))
 
 if __name__ == '__main__':
     main()
